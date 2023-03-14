@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder,SwaggerModule } from '@nestjs/swagger';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 declare const module: any;
 
 async function bootstrap() {
@@ -16,7 +17,7 @@ async function bootstrap() {
   .build();
 
   const document = SwaggerModule.createDocument(app, options, {
-    include:[UsersModule],
+    include:[UsersModule,AuthModule],
   })
   SwaggerModule.setup('docs', app, document);
 

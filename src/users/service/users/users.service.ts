@@ -9,9 +9,10 @@ import { UpdateUserDto } from 'src/users/dto/update-users.dto';
 import { Query } from 'typeorm/driver/Query';
 import { generate } from 'generate-password-ts';
 
-// const randtoken = require("rand-token");
+
+const randtoken = require("rand-token");
 // const generator = require("generate-password");
-// const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
 
 
 
@@ -24,7 +25,11 @@ export class UsersService {
           
       async create(createUserDto: CreateUserDto) {
         // const newUser = this.repository.create(createUserDto);
-        return this.repository.save(createUserDto);
+        const m=await this.genPassword();
+        console.log(m);
+        const password=await bcrypt.hash(m,10);
+        //console.log(password)
+        return this.repository.save({...createUserDto,password});
       }
            
       async findOOne(id: number) {
@@ -42,6 +47,8 @@ export class UsersService {
         });
         return password;
       }
+
+      
     
     async remove(id:number,  status:string){
       return this.repository.delete(id)
@@ -53,6 +60,14 @@ export class UsersService {
       @Patch(':id')
       update(@Param('id') id: string , @Body() updateUserdto:UpdateUserDto){
         return this.repository.update(id,updateUserdto)
+      }
+      async findByEmail(email: string) {
+        const user = await this.repository.findOne({
+          where: {
+            email: email,
+          },
+        });
+        return user;
       }
 }
 

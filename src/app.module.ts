@@ -20,7 +20,7 @@ import { AuthModule } from './auth/auth.module';
         database: configService.get('DB_NAME'),
         logging:true,
         
-         entities: [User],
+         entities: [User,],
        
         autoLoadEntities: true,
         synchronize: true,
@@ -30,7 +30,5 @@ import { AuthModule } from './auth/auth.module';
     }),
     UsersModule,
     AuthModule],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}
