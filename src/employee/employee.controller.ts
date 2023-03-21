@@ -21,6 +21,7 @@ export class EmployeeController {
   findAll( @Query("page") page:string,
   @Query("perPage") perPage: string,
   @Query("status") status: string) {
+    
     return this.employeeService.findAll(+page, +perPage, status)
   }
 
