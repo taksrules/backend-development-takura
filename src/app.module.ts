@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import entities from './typeorm';
 import { User } from './users/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
+import { EmployeeModule } from './employee/employee.module';
 
 @Module({
   imports: [ConfigModule.forRoot({isGlobal:true}),
@@ -29,6 +30,7 @@ import { AuthModule } from './auth/auth.module';
      
     }),
     UsersModule,
-    AuthModule],
+    AuthModule,
+    EmployeeModule],
 })
 export class AppModule {}
